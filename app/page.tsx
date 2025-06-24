@@ -1,82 +1,104 @@
+"use client"
+
+import React, { useState } from "react"
 import Link from "next/link"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Mail, Phone, MapPin, Linkedin, Facebook, Send } from "lucide-react"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel" // Import Carousel components
+import { Mail, Phone, MapPin, Linkedin, Facebook, Send, PanelLeft } from "lucide-react"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 
 export default function Component() {
+  const [menuOpen, setMenuOpen] = useState(false)
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-50">
       {/* Sticky Navigation Bar */}
       <nav className="sticky top-0 z-50 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm py-4">
-        <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
-          <Link href="#" className="text-2xl font-bold text-gray-900 dark:text-gray-50" prefetch={false}>
-            Teshome A.B. Consulting
-          </Link>
-          <div className="hidden md:flex space-x-6">
+        <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center">
+          <div className="flex w-full justify-between items-center md:w-auto">
+            <Link href="#" className="text-2xl font-bold text-gray-900 dark:text-gray-50 mb-4 md:mb-0" prefetch={false}>
+              Teshome A.B. Consulting
+            </Link>
+            {/* Hamburger menu button for mobile */}
+            <button
+              className="md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-400"
+              aria-label="Open menu"
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              <PanelLeft className="h-7 w-7" />
+            </button>
+          </div>
+          {/* Navigation links */}
+          <div
+            className={`${menuOpen ? "flex" : "hidden"} flex-col w-full mt-2 md:mt-0 md:flex md:flex-row md:items-center md:justify-center md:gap-x-6 md:gap-y-0 gap-x-0 gap-y-2 text-center bg-white/90 dark:bg-gray-900/90 md:bg-transparent md:dark:bg-transparent rounded md:rounded-none shadow md:shadow-none py-2 md:py-0`}
+          >
             <Link
               href="#about"
-              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-50 transition-colors"
+              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-50 transition-colors text-base md:text-lg"
               prefetch={false}
+              onClick={() => setMenuOpen(false)}
             >
               About Us
             </Link>
             <Link
               href="#services"
-              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-50 transition-colors"
+              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-50 transition-colors text-base md:text-lg"
               prefetch={false}
+              onClick={() => setMenuOpen(false)}
             >
               Services
             </Link>
             <Link
               href="#experience"
-              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-50 transition-colors"
+              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-50 transition-colors text-base md:text-lg"
               prefetch={false}
+              onClick={() => setMenuOpen(false)}
             >
               Experience
             </Link>
             <Link
               href="#skills"
-              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-50 transition-colors"
+              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-50 transition-colors text-base md:text-lg"
               prefetch={false}
+              onClick={() => setMenuOpen(false)}
             >
               Expertise
             </Link>
             <Link
               href="#testimonials"
-              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-50 transition-colors"
+              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-50 transition-colors text-base md:text-lg"
               prefetch={false}
+              onClick={() => setMenuOpen(false)}
             >
               Testimonials
             </Link>
             <Link
               href="#contact"
-              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-50 transition-colors"
+              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-50 transition-colors text-base md:text-lg"
               prefetch={false}
+              onClick={() => setMenuOpen(false)}
             >
               Contact
             </Link>
           </div>
-          {/* Mobile menu button could go here */}
         </div>
       </nav>
 
       <header className="w-full py-12 md:py-16 lg:py-20 bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-lg">
         <div className="container mx-auto px-4 md:px-6 flex flex-col items-center text-center">
           <Avatar className="h-32 w-32 mb-6 border-4 border-white shadow-lg">
-            <AvatarImage src="/placeholder.svg?height=128&width=128" alt="Teshome Ababa Beyene" />
+            <AvatarImage src="/teshome.jpg?height=128&width=128" alt="Teshome Ababa Beyene" />
             <AvatarFallback className="bg-gray-700 text-white text-4xl">TB</AvatarFallback>
           </Avatar>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-2">TESHOME ABABA BEYENE</h1>
           <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-gray-300 mb-6">
             General Management & Finance Consulting
           </h2>
-          <p className="max-w-3xl text-lg md:text-xl text-gray-300 mb-8">
+          <p className="max-w-3xl text-lg md:text-xl text-gray-300 mb-8 px-2">
             Empowering businesses with strategic financial insights and robust operational leadership for sustainable
             growth in dynamic markets.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 text-lg text-gray-400">
+          <div className="flex flex-wrap justify-center gap-4 text-lg text-gray-400 px-2">
             <div className="flex items-center gap-2">
               <MapPin className="h-5 w-5" />
               <span>Addis Ababa, Ethiopia</span>
@@ -124,7 +146,7 @@ export default function Component() {
         {/* Services Section */}
         <section id="services" className="grid gap-6">
           <h3 className="text-3xl font-bold border-b-2 border-gray-300 dark:border-gray-700 pb-2">Our Services</h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card className="bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow">
               <CardHeader>
                 <CardTitle className="text-xl font-bold">Strategic Financial Consulting</CardTitle>
@@ -325,7 +347,7 @@ export default function Component() {
         {/* Education */}
         <section id="education" className="grid gap-4">
           <h3 className="text-3xl font-bold border-b-2 border-gray-300 dark:border-gray-700 pb-2">Education</h3>
-          <div className="grid gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card className="bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow">
               <CardHeader>
                 <CardTitle className="text-xl font-bold">MBA – Non-Profit Corporate Management</CardTitle>
@@ -471,7 +493,7 @@ export default function Component() {
         <section id="contact" className="grid gap-6">
           <h3 className="text-3xl font-bold border-b-2 border-gray-300 dark:border-gray-700 pb-2">Contact Us</h3>
           <Card className="bg-white dark:bg-gray-800 shadow-md">
-            <CardContent className="p-6 grid md:grid-cols-2 gap-6">
+            <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="grid gap-4">
                 <h4 className="text-xl font-semibold text-gray-900 dark:text-gray-50">Get in Touch</h4>
                 <div className="flex items-center gap-3 text-lg text-gray-700 dark:text-gray-300">
@@ -530,43 +552,6 @@ export default function Component() {
               </div>
             </CardContent>
           </Card>
-        </section>
-
-        {/* References (Moved to bottom as per typical CV structure, but still accessible) */}
-        <section id="references" className="grid gap-4">
-          <h3 className="text-3xl font-bold border-b-2 border-gray-300 dark:border-gray-700 pb-2">References</h3>
-          <div className="grid gap-4 text-lg text-gray-700 dark:text-gray-300">
-            <Card className="bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="text-xl font-bold">Dereje Awgechew</CardTitle>
-                <p className="text-lg text-gray-600 dark:text-gray-400">
-                  Vice President, Project Financing – Development Bank of Ethiopia
-                </p>
-                <a
-                  href="tel:+251911178281"
-                  className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline"
-                >
-                  <Phone className="h-4 w-4" />
-                  <span>+251-911-17-82-81</span>
-                </a>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Addis Ababa</p>
-              </CardHeader>
-            </Card>
-            <Card className="bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="text-xl font-bold">Bizuayehu Seyoum</CardTitle>
-                <p className="text-lg text-gray-600 dark:text-gray-400">Chief Banking Business Officer – Amhara Bank</p>
-                <a
-                  href="tel:+251903700970"
-                  className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline"
-                >
-                  <Phone className="h-4 w-4" />
-                  <span>+251-903-70-09-70</span>
-                </a>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Addis Ababa</p>
-              </CardHeader>
-            </Card>
-          </div>
         </section>
       </main>
 
