@@ -1,15 +1,28 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Mail, Phone, MapPin, Linkedin, Facebook, Send, PanelLeft } from "lucide-react"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import type { UseEmblaCarouselType } from 'embla-carousel-react'
+type EmblaCarouselType = UseEmblaCarouselType[1]
 
 export default function Component() {
   const [menuOpen, setMenuOpen] = useState(false)
+  // For carousel auto-slide
+  const [carouselApi, setCarouselApi] = useState<EmblaCarouselType | undefined>()
+
+  useEffect(() => {
+    if (!carouselApi) return
+    const interval = setInterval(() => {
+      carouselApi.scrollNext()
+    }, 4000) // 4 seconds per slide
+    return () => clearInterval(interval)
+  }, [carouselApi])
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-50">
       {/* Sticky Navigation Bar */}
@@ -451,7 +464,7 @@ export default function Component() {
           <h3 className="text-3xl font-bold border-b-2 border-gray-300 dark:border-gray-700 pb-2">
             Client Testimonials
           </h3>
-          <Carousel className="w-full max-w-3xl mx-auto">
+          <Carousel className="w-full max-w-3xl mx-auto" setApi={setCarouselApi}>
             <CarouselContent>
               <CarouselItem>
                 <Card className="bg-white dark:bg-gray-800 shadow-md">
@@ -484,8 +497,8 @@ export default function Component() {
               </CarouselItem>
               {/* Add more testimonials here if available */}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="hidden md:block" />
+            <CarouselNext className="hidden md:block" />
           </Carousel>
         </section>
 
